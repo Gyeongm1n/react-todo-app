@@ -1,70 +1,78 @@
-# Getting Started with Create React App
+# Todo - app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## node-sass 충돌
 
-## Available Scripts
+- 에러 발생
 
-In the project directory, you can run:
+```
+./src/components/TodoTemplate.scss (./node_modules/css-loader/dist/cjs.js??ref--5-oneOf-6-1!./node_modules/postcss-loader/src??postcss!./node_modules/resolve-url-loader??ref--5-oneOf-6-3!./node_modules/sass-loader/dist/cjs.js??ref--5-oneOf-6-4!./src/components/TodoTemplate.scss)
+Node Sass version 6.0.1 is incompatible with ^4.0.0 || ^5.0.0.
+```
 
-### `yarn start`
+- 해결
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
+yarn add node-sass@4.14.0
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## react-icons 라이브러리
 
-### `yarn test`
+- https://react-icons.github.io/react-icons/icons?name=md
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- 기본 사용법
 
-### `yarn build`
+```js
+import { IconName } from 'react-icons/md';
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 색상 내장 함수
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- darken 함수
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+button {
+  $color: #868e96;
+  background: none;
+  border: none;
+  outline: none;
+  background-color: $color;
+  color: #fff;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.1s background-color ease-in;
 
-### `yarn eject`
+  &:hover {
+    background-color: darken($color, 10%);
+  }
+}
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## classnames 라이브러리
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- import
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```jsx
+import cn from 'classnames';
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+<div className={cn('classname', { checked })}></div>;
+```
 
-## Learn More
+## 컴포넌트의 리랜더링
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- 부모 컴포넌트 리랜더링
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- props 변경
 
-### Code Splitting
+- state 변경
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- forceUpdate 함수 실행
 
-### Analyzing the Bundle Size
+## React.memo 함수
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- 컴포넌트의 props가 변경되지 않으면 리랜더링하지 않도록 설정
 
-### Making a Progressive Web App
+## react-virtualized 라이브러리
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- https://github.com/bvaughn/react-virtualized/blob/master/docs/List.md

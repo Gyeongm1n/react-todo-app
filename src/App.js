@@ -1,25 +1,55 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useRef, useCallback } from 'react';
+import TodoInsert from './components/TodoInsert';
+import TodoList from './components/TodoList';
+import TodoTemplate from './components/TodoTemplate';
 
-function App() {
+const App = () => {
+  function createTodos() {
+    let array = [];
+
+    for (let i = 0; i <= 2500; i++) {
+      array.push({
+        id: i,
+        content: `내용${i}`,
+        checked: false,
+      });
+    }
+
+    return array;
+  }
+
+  const [todos, setTodos] = useState(createTodos);
+
+  const nextId = useRef(2501);
+  const onInsert = useCallback((content) => {
+    const todo = {
+      id: nextId.current,
+      content,
+      checked: false,
+    };
+
+    setTodos((todos) => [...todos, todo]);
+    nextId.current += 1;
+  }, []);
+
+  const onRemove = useCallback((id) => {
+    setTodos((todos) => todos.filter((todo) => todo.id !== id));
+  }, []);
+
+  const onCheck = useCallback((id) => {
+    setTodos((todos) =>
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, checked: !todo.checked } : todo,
+      ),
+    );
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <TodoTemplate>
+      <TodoInsert onInsert={onInsert} />
+      <TodoList todos={todos} onRemove={onRemove} onCheck={onCheck} />
+    </TodoTemplate>
   );
-}
+};
 
 export default App;
